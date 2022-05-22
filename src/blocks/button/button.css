@@ -1,0 +1,6 @@
+.button {
+  padding: 0;
+  border: 0;
+  transition: opacity .15s ease;
+  cursor: pointer;
+}
