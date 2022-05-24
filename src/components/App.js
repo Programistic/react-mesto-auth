@@ -9,6 +9,10 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopup';
 import ConfirmDeletePopup from './ConfirmDeletePopup';
+import ProtectedRoute from './ProtectedRoute';
+import { Route, Switch } from 'react-router';
+import Register from './Register';
+import Login from './Login';
 
 class App extends Component {
   constructor(props) {
@@ -22,8 +26,14 @@ class App extends Component {
       selectedCard: {},
       deleteCard: {},
       cards: [],
-      currentUser: {}
+      currentUser: {},
+      loggedIn: true
     };
+    this.handleLogin = this.handleLogin.bind(this);
+  }
+
+  handleLogin = () => {
+    this.setState({ loggedIn: true })
   }
 
   handleEditProfileClick = () => {
@@ -170,17 +180,33 @@ class App extends Component {
 
             <Header />
 
-            <Main
-              cards={this.state.cards}
-              onEditProfile={this.handleEditProfileClick}
-              onAddPlace={this.handleAddPlaceClick}
-              onEditAvatar={this.handleEditAvatarClick}
-              onCardLike={this.handleCardLike}
-              onCardDelete={this.openConfirmDeletePopup}
-              onCardClick={this.handleCardClick}
-            />
+            <main className="content">
 
-            <Footer />
+              <Switch>
+                <ProtectedRoute
+                  exact path="/"
+                  loggedIn={this.state.loggedIn}
+                  cards={this.state.cards}
+                  onEditProfile={this.handleEditProfileClick}
+                  onAddPlace={this.handleAddPlaceClick}
+                  onEditAvatar={this.handleEditAvatarClick}
+                  onCardLike={this.handleCardLike}
+                  onCardDelete={this.openConfirmDeletePopup}
+                  onCardClick={this.handleCardClick}
+                  component={Main}>
+                </ProtectedRoute>
+
+                <Route path="/sign-up">
+                  
+                </Route>
+
+                <Route path="/sign-in">
+                  
+                </Route>
+              </Switch>
+
+              {this.state.loggedIn && <Footer />}
+            </main>
 
             <EditProfilePopup
               isOpen={this.state.isEditProfilePopupOpen}
