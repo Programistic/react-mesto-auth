@@ -1,0 +1,12 @@
+.menu__nav-button {
+  margin: 0;
+  padding: 0;
+  color: #a9a9a9;
+  background-color: #000;
+}
+
+@media screen and (max-width: 580px) {
+  .menu__nav-button {
+    display: none;
+  }
+}

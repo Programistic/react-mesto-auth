@@ -1,0 +1,15 @@
+.menu__item {
+  display: none;
+}
+
+@media screen and (max-width: 580px) {
+  .menu__item {
+    display: none;
+    width: 24px;
+    height: 3px;
+    margin: 0;
+    padding: 0;
+    background-image: url(../../../images/menu-line.svg);
+    background-repeat: repeat;
+  }
+}

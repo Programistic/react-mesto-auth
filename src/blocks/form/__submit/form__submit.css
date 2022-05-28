@@ -2,14 +2,8 @@
   width: 100%;
   margin: 0;
   padding: 14px 0;
-  color: #fff;
   font: 400 18px/22px 'Inter', 'Arial', sans-serif;
-  background-color: #000;
   border-radius: 2px;
-}
-  
-.form__submit:hover {
-  opacity: .8;
 }
 
 @media screen and (max-width: 580px) {

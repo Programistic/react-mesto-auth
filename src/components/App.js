@@ -13,6 +13,7 @@ import ProtectedRoute from './ProtectedRoute';
 import { Route, Switch } from 'react-router';
 import Register from './Register';
 import Login from './Login';
+import InfoTooltip from './InfoTooltip';
 
 class App extends Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class App extends Component {
       isAddPlacePopupOpen: false,
       isEditAvatarPopupOpen: false,
       isConfirmPopupOpen: false,
+      isInfoTooltipOpen: true,
       selectedCard: {},
       deleteCard: {},
       cards: [],
@@ -162,6 +164,7 @@ class App extends Component {
         isAddPlacePopupOpen: false,
         isEditAvatarPopupOpen: false,
         isConfirmPopupOpen: false,
+        isInfoTooltipOpen: false,
         selectedCard: {}
       }
     );
@@ -196,16 +199,16 @@ class App extends Component {
                   component={Main}>
                 </ProtectedRoute>
 
-                <Route path="/sign-up">
-                  
+                <Route path="/s">
+                  <Login />
                 </Route>
 
-                <Route path="/sign-in">
-                  
+                <Route path="/s">
+                  <Register />
                 </Route>
               </Switch>
 
-              {this.state.loggedIn && <Footer />}
+              {!this.state.loggedIn && <Footer />}
             </main>
 
             <EditProfilePopup
@@ -234,6 +237,11 @@ class App extends Component {
 
             <ImagePopup
               card={this.state.selectedCard}
+              onClose={this.closeAllPopups}
+            />
+
+            <InfoTooltip
+              isOpen={this.state.isInfoTooltipOpen}
               onClose={this.closeAllPopups}
             />
 

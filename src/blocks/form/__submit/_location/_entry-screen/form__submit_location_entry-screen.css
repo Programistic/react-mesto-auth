@@ -1,0 +1,9 @@
+.form__submit_location_entry-screen {
+  margin-top: 168px;
+}
+
+@media screen and (max-width: 580px) {
+  .form__submit_location_entry-screen {
+    margin-top: 125px;
+  }
+}

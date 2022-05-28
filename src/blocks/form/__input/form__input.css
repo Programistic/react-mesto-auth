@@ -3,13 +3,8 @@
   padding: 0 0 10px;
   font: 400 14px/16.94px 'Inter', 'Arial', sans-serif;
   border: none;
-  border-bottom: 1px solid;
-  border-bottom-color: rgba(0, 0, 0, .2);
 }
 
 .form__input:focus {
   outline: none;
-  border: 1px solid rgba(0, 0, 0, .2);
-  border-bottom: 1px solid;
-  border-bottom-color: rgba(0, 0, 0, .2);
 }
