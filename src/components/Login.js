@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react'
+import { withRouter } from 'react-router-dom';
 
 function Login() {
 
@@ -41,4 +42,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default withRouter(Login);

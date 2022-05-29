@@ -90,9 +90,9 @@
 /* Стили для entry-screen */
 @import url(./blocks/entry-screen/entry-screen.css);
 @import url(./blocks/entry-screen/__heading/entry-screen__heading.css);
-@import url(./blocks/entry-link/entry-link.css);
-@import url(./blocks/entry-link/__button/entry-link__button.css);
-
+@import url(./blocks/entry-screen/__signin-question/entry-screen__signin-question.css);
+@import url(./blocks/entry-screen/__login-link/entry-screen__login-link.css);
+@import url(./blocks/entry-screen/__signin/entry-screen__signin.css);
 
 /* Стили для error */
 @import url(./blocks/form/__input-error/form__input-error.css);

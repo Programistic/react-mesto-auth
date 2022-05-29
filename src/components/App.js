@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import api from '../utils/Api';
 import Header from './Header';
@@ -10,7 +11,6 @@ import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopup';
 import ConfirmDeletePopup from './ConfirmDeletePopup';
 import ProtectedRoute from './ProtectedRoute';
-import { Route, Switch } from 'react-router';
 import Register from './Register';
 import Login from './Login';
 import InfoTooltip from './InfoTooltip';
@@ -24,7 +24,7 @@ class App extends Component {
       isAddPlacePopupOpen: false,
       isEditAvatarPopupOpen: false,
       isConfirmPopupOpen: false,
-      isInfoTooltipOpen: true,
+      isInfoTooltipOpen: false,
       selectedCard: {},
       deleteCard: {},
       cards: [],
@@ -181,35 +181,39 @@ class App extends Component {
 
           <CurrentUserContext.Provider value={this.state.currentUser}>
 
-            <Header />
+            <Header loggedIn={this.state.loggedIn} />
 
-            <main className="content">
+            <Switch>
 
-              <Switch>
-                <ProtectedRoute
-                  exact path="/"
-                  loggedIn={this.state.loggedIn}
-                  cards={this.state.cards}
-                  onEditProfile={this.handleEditProfileClick}
-                  onAddPlace={this.handleAddPlaceClick}
-                  onEditAvatar={this.handleEditAvatarClick}
-                  onCardLike={this.handleCardLike}
-                  onCardDelete={this.openConfirmDeletePopup}
-                  onCardClick={this.handleCardClick}
-                  component={Main}>
-                </ProtectedRoute>
+              <ProtectedRoute
+                path="/main"
+                loggedIn={this.state.loggedIn}
+                cards={this.state.cards}
+                onEditProfile={this.handleEditProfileClick}
+                onAddPlace={this.handleAddPlaceClick}
+                onEditAvatar={this.handleEditAvatarClick}
+                onCardLike={this.handleCardLike}
+                onCardDelete={this.openConfirmDeletePopup}
+                onCardClick={this.handleCardClick}
+                component={Main}>
+              </ProtectedRoute>
 
-                <Route path="/s">
-                  <Login />
-                </Route>
+              <Route path="/signin">
+                <Login handleLogin={this.handleLogin} />
+              </Route>
 
-                <Route path="/s">
-                  <Register />
-                </Route>
-              </Switch>
+              <Route path="/signup">
+                <Register />
+              </Route>
 
-              {!this.state.loggedIn && <Footer />}
-            </main>
+              <Route>
+                {this.state.loggedIn ? <Redirect to="/signup" /> : <Redirect to="/signin" />}
+              </Route>
+
+            </Switch>
+
+            {this.state.loggedIn && <Footer />}
+            
 
             <EditProfilePopup
               isOpen={this.state.isEditProfilePopupOpen}
@@ -253,5 +257,5 @@ class App extends Component {
   } 
 }
 
-export default App;
+export default withRouter(App);
 

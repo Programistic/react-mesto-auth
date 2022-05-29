@@ -1,13 +1,17 @@
 import React from 'react';
-import { useState } from 'react'
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import * as Auth from './Auth';
 
 function Register() {
 
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
 
-  const handleSubmit = () => {
-
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const result = Auth.register(userEmail, userPassword);
+    console.log(result)
   }
 
   const handleEmailChange = (event) => {
@@ -37,9 +41,9 @@ function Register() {
         </fieldset>
         <button className="form__submit form__submit_theme_white button" type="submit" aria-label={buttonText}>{buttonText}</button>
       </form>
-      <div className="entry-link">
-        <span>Уже зарегистрированы?</span>
-        <button className="button entry-link__button" aria-label="Войти">Войти</button>
+      <div className="entry-screen__signin">
+        <p className="entry-screen__signin-question">Уже зарегистрированы?</p>
+        <Link to="signin" className="entry-screen__login-link">Войти</Link>
       </div>
     </div>
   );

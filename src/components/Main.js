@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { withRouter } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Card from './Card';
 
@@ -40,4 +41,4 @@ function Main({cards, onCardLike, onCardClick, onCardDelete, onEditAvatar, onEdi
   );
 }
 
-export default Main;
+export default withRouter(Main);
