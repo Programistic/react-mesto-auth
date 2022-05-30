@@ -3,15 +3,21 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import * as Auth from './Auth';
 
-function Register() {
+function Register({tooltipSuccess, tooltipFail}) {
 
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const result = Auth.register(userEmail, userPassword);
-    console.log(result)
+    Auth.register(userEmail, userPassword)
+      .then((res) => {
+        if(res) {
+          tooltipSuccess();
+        } else {
+          tooltipFail();
+        }
+      }) 
   }
 
   const handleEmailChange = (event) => {
@@ -22,12 +28,9 @@ function Register() {
     setUserPassword(event.target.value);
   }
 
-  const heading = "Регистрация";
-  const buttonText = "Зарегистрироваться"
-
   return (
     <div className="entry-screen">
-      <h2 className="entry-screen__heading">{heading}</h2>
+      <h2 className="entry-screen__heading">Регистрация</h2>
       <form className="form" onSubmit={handleSubmit}>
         <fieldset className="form__fieldset form__fieldset_location_entry-screen">
           <div className="form__field">
@@ -39,7 +42,7 @@ function Register() {
             <span className="form__input-error user-password-input-error"></span>
           </div>
         </fieldset>
-        <button className="form__submit form__submit_theme_white button" type="submit" aria-label={buttonText}>{buttonText}</button>
+        <button className="form__submit form__submit_theme_white button" type="submit" aria-label='Зарегистрироваться'>Зарегистрироваться</button>
       </form>
       <div className="entry-screen__signin">
         <p className="entry-screen__signin-question">Уже зарегистрированы?</p>

@@ -8,9 +8,11 @@ export const register = (email, password) => {
     },
     body: JSON.stringify({email, password})
   })
-    .then((res) => getResponseData(res));
+    .then(getResponseData)
 };
 
 const getResponseData = (res) => {
-  return res.ok ? res.json() : Promise.reject(`Error ${res.status}`)
+  return res.ok ? res.json() : res.json().then((res) => {
+    Promise.reject(`Error ${res.status}`)
+  }) 
 }

@@ -1,9 +1,4 @@
-import React from 'react';
-
-function Navbar() {
-
-  const email = "maksim.dav@mail.ru";
-  const buttonText = "Выйти";
+function Navbar({email, buttonText}) {
 
   return (
     <nav className="menu">

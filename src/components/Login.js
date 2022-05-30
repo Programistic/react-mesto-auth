@@ -1,14 +1,13 @@
 import React from 'react';
 import { useState } from 'react'
-import { withRouter } from 'react-router-dom';
 
 function Login() {
 
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
 
-  const handleSubmit = () => {
-
+  const handleSubmit = (event) => {
+    event.preventDefault();
   }
 
   const handleEmailChange = (event) => {
@@ -19,12 +18,9 @@ function Login() {
     setUserPassword(event.target.value);
   }
 
-  const heading = "Вход";
-  const buttonText = "Войти"
-
   return (
     <div className="entry-screen">
-      <h2 className="entry-screen__heading">{heading}</h2>
+      <h2 className="entry-screen__heading">Вход</h2>
       <form className="form" onSubmit={handleSubmit}>
         <fieldset className="form__fieldset form__fieldset_location_entry-screen">
           <div className="form__field">
@@ -36,10 +32,10 @@ function Login() {
             <span className="form__input-error user-password-input-error"></span>
           </div>
         </fieldset>
-        <button className="form__submit form__submit_theme_white button" type="submit" aria-label={buttonText}>{buttonText}</button>
+        <button className="form__submit form__submit_theme_white button" type="submit" aria-label='Войти'>Войти</button>
       </form>
     </div>
   );
 }
 
-export default withRouter(Login);
+export default Login;

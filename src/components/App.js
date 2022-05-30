@@ -25,11 +25,14 @@ class App extends Component {
       isEditAvatarPopupOpen: false,
       isConfirmPopupOpen: false,
       isInfoTooltipOpen: false,
+      infoTooltipButtonName: '',
+      infoTooltipMessage: '',
+      isSuccess: false,
       selectedCard: {},
       deleteCard: {},
       cards: [],
       currentUser: {},
-      loggedIn: true
+      loggedIn: false
     };
     this.handleLogin = this.handleLogin.bind(this);
   }
@@ -171,7 +174,32 @@ class App extends Component {
   }
 
   openConfirmDeletePopup = (card) => {
-    this.setState({ deleteCard: card, isConfirmPopupOpen: true })
+    this.setState({ deleteCard: card, isConfirmPopupOpen: true });
+  }
+
+  openTooltipSuccess = () => {
+    this.setState({
+      isSuccess: true,
+      isInfoTooltipOpen: true,
+      infoTooltipButtonName: 'success',
+      infoTooltipMessage: 'Вы успешно зарегистрировались!'
+    });
+  }
+
+  openTooltipFail = () => {
+    this.setState({
+      isSuccess: false,
+      isInfoTooltipOpen: true,
+      infoTooltipButtonName: 'fail',
+      infoTooltipMessage: 'Что-то пошло не так! Попробуйте ещё раз.'
+    });
+  }
+
+  handleConfirmRegister = () => {
+    this.closeAllPopups();
+    if(this.state.isSuccess) {
+      this.props.history.push('/signin');
+    } 
   }
 
   render() {
@@ -181,7 +209,7 @@ class App extends Component {
 
           <CurrentUserContext.Provider value={this.state.currentUser}>
 
-            <Header loggedIn={this.state.loggedIn} />
+            <Header loggedIn={this.state.loggedIn} email='maksim@mail.ru' buttonText='Регистрация' />
 
             <Switch>
 
@@ -203,11 +231,11 @@ class App extends Component {
               </Route>
 
               <Route path="/signup">
-                <Register />
+                <Register tooltipSuccess={this.openTooltipSuccess} tooltipFail={this.openTooltipFail} />
               </Route>
 
               <Route>
-                {this.state.loggedIn ? <Redirect to="/signup" /> : <Redirect to="/signin" />}
+                {this.state.loggedIn ? <Redirect to="/signin" /> : <Redirect to="/signup" />}
               </Route>
 
             </Switch>
@@ -246,6 +274,9 @@ class App extends Component {
 
             <InfoTooltip
               isOpen={this.state.isInfoTooltipOpen}
+              message={this.state.infoTooltipMessage}
+              buttonName={this.state.infoTooltipButtonName}
+              onConfirm={this.handleConfirmRegister}
               onClose={this.closeAllPopups}
             />
 
