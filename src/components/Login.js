@@ -1,13 +1,32 @@
 import React from 'react';
-import { useState } from 'react'
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import * as Auth from './Auth';
 
-function Login() {
+function Login({handleLogin}) {
 
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
+  let history = useHistory();
+  const goMain = () => {
+    history.push("/main");
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!userEmail || !userPassword) {
+      return;
+    }
+    Auth.authorize(userEmail, userPassword)
+      .then((data) => {
+        if (data.token) {
+          setUserEmail('');
+          setUserPassword('');
+          handleLogin();
+          goMain();
+        }
+      })
+      .catch(err => console.log(err));  
   }
 
   const handleEmailChange = (event) => {

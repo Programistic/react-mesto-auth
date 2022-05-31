@@ -14,6 +14,7 @@ import ProtectedRoute from './ProtectedRoute';
 import Register from './Register';
 import Login from './Login';
 import InfoTooltip from './InfoTooltip';
+import * as Auth from './Auth';
 
 class App extends Component {
   constructor(props) {
@@ -28,17 +29,38 @@ class App extends Component {
       infoTooltipButtonName: '',
       infoTooltipMessage: '',
       isSuccess: false,
+      userEmail: '',
       selectedCard: {},
       deleteCard: {},
       cards: [],
       currentUser: {},
       loggedIn: false
     };
+
     this.handleLogin = this.handleLogin.bind(this);
+    this.tokenCheck = this.tokenCheck.bind(this);
   }
 
   handleLogin = () => {
     this.setState({ loggedIn: true })
+  }
+
+  tokenCheck = () => {
+    if (localStorage.getItem('jwt')) {
+      const jwt = localStorage.getItem('jwt');
+      if (jwt) {
+        Auth.getContent(jwt).then((res) => {
+          if (res) {
+            this.setState({
+              loggedIn: true,
+              userEmail: res.data.email
+            }, () => {
+              this.props.history.push("/main");
+            });
+          }
+        });
+      }
+    }
   }
 
   handleEditProfileClick = () => {
@@ -151,6 +173,8 @@ class App extends Component {
         console.log(err);
       });
 
+    this.tokenCheck();
+
     document.addEventListener("keydown", this.handleEscClick);
     document.addEventListener("click", this.handleOutsideClick);
   }
@@ -209,7 +233,7 @@ class App extends Component {
 
           <CurrentUserContext.Provider value={this.state.currentUser}>
 
-            <Header loggedIn={this.state.loggedIn} email='maksim@mail.ru' buttonText='Регистрация' />
+            <Header loggedIn={this.state.loggedIn} email={this.state.userEmail} buttonText='Выйти' />
 
             <Switch>
 
