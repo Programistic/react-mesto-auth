@@ -15,6 +15,8 @@ function Register({tooltipSuccess, tooltipFail}) {
         if(res) {
           tooltipSuccess();
         } else {
+          setUserEmail('');
+          setUserPassword('');
           tooltipFail();
         }
       }) 

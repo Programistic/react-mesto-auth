@@ -7,7 +7,7 @@ function Login({handleLogin}) {
 
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
-  let history = useHistory();
+  const history = useHistory();
   const goMain = () => {
     history.push("/main");
   }
@@ -26,7 +26,7 @@ function Login({handleLogin}) {
           goMain();
         }
       })
-      .catch(err => console.log(err));  
+      .catch(err => console.log(err));
   }
 
   const handleEmailChange = (event) => {

@@ -1,9 +1,9 @@
-.menu__item {
+.menu__icon {
   display: none;
 }
 
 @media screen and (max-width: 580px) {
-  .menu__item {
+  .menu__icon {
     display: none;
     width: 24px;
     height: 3px;

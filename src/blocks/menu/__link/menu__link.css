@@ -1,0 +1,19 @@
+.menu__link {
+  margin: 0;
+  padding: 0;
+  color: #a9a9a9;
+  font: 400 18px/22px 'Inter', 'Arial', sans-serif;
+  text-decoration: none;
+  transition: opacity .15s ease;
+}
+
+.menu__link:hover {
+  cursor: pointer;
+  opacity: .8;
+}
+
+@media screen and (max-width: 580px) {
+  .menu__link {
+    display: none;
+  }
+}

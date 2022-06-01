@@ -34,7 +34,7 @@ class App extends Component {
       deleteCard: {},
       cards: [],
       currentUser: {},
-      loggedIn: false
+      loggedIn: false,
     };
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -42,7 +42,11 @@ class App extends Component {
   }
 
   handleLogin = () => {
-    this.setState({ loggedIn: true })
+    this.setState({ loggedIn: true });
+  }
+  
+  resetLogedIn = () => {
+    this.setState({ loggedIn: false });
   }
 
   tokenCheck = () => {
@@ -53,7 +57,7 @@ class App extends Component {
           if (res) {
             this.setState({
               loggedIn: true,
-              userEmail: res.data.email
+              userEmail: res.data.email,
             }, () => {
               this.props.history.push("/main");
             });
@@ -114,9 +118,7 @@ class App extends Component {
   }
 
   handleCardLike = (card) => {
-
     const isLiked = card.likes.some(like => like._id === this.state.currentUser._id);
-
     api.changeLikeCardStatus(card._id, isLiked)
       .then(getCard => {
         this.setState({ cards: this.state.cards.map(oldCard => oldCard._id === getCard._id ? getCard : oldCard) });
@@ -233,7 +235,7 @@ class App extends Component {
 
           <CurrentUserContext.Provider value={this.state.currentUser}>
 
-            <Header loggedIn={this.state.loggedIn} email={this.state.userEmail} buttonText='Выйти' />
+            <Header userEmail={this.state.userEmail} resetLogedIn={this.resetLogedIn} />
 
             <Switch>
 
@@ -301,9 +303,8 @@ class App extends Component {
               message={this.state.infoTooltipMessage}
               buttonName={this.state.infoTooltipButtonName}
               onConfirm={this.handleConfirmRegister}
-              onClose={this.closeAllPopups}
             />
-
+            
           </CurrentUserContext.Provider>
           
         </div>

@@ -12,8 +12,8 @@
 /* Стили для menu */
 @import url(./blocks/menu/menu.css);
 @import url(./blocks/menu/__user-email/menu__user-email.css);
-@import url(./blocks/menu/__nav-button/menu__nav-button.css);
-@import url(./blocks/menu/__item/menu__item.css);
+@import url(./blocks/menu/__link/menu__link.css);
+@import url(./blocks/menu/__icon/menu__icon.css);
 
 /* Стили для profile */
 @import url(./blocks/profile/profile.css);
