@@ -253,7 +253,7 @@ class App extends Component {
             <Switch>
 
               <ProtectedRoute
-                path="/main"
+                exact path="/main"
                 loggedIn={this.state.loggedIn}
                 cards={this.state.cards}
                 onEditProfile={this.handleEditProfileClick}
@@ -274,7 +274,7 @@ class App extends Component {
               </Route>
 
               <Route>
-                {this.state.loggedIn ? <Redirect to="/signin" /> : <Redirect to="/signup" />}
+                {!this.state.loggedIn && <Redirect to="/signin" />}
               </Route>
 
             </Switch>
