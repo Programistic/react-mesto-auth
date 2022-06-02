@@ -1,6 +1,6 @@
 /* Общие стили для страницы */
 @import url(./vendor/normalize.css);
-@import url(./fonts/font-inter.css);
+@import url(./vendor/fonts/font-inter.css);
 @import url(./blocks/page/page.css);
 @import url(./blocks/container/container.css);
 @import url(./blocks/logo/logo.css);
