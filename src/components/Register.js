@@ -1,7 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import * as Auth from './Auth';
+import * as Auth from '../utils/Auth';
 
 function Register({tooltipSuccess, tooltipFail}) {
 
@@ -19,7 +18,8 @@ function Register({tooltipSuccess, tooltipFail}) {
           setUserPassword('');
           tooltipFail();
         }
-      }) 
+      })
+      .catch(err => console.log(err));
   }
 
   const handleEmailChange = (event) => {

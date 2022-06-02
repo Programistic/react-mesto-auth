@@ -1,9 +1,8 @@
-import React from 'react';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import * as Auth from './Auth';
+import * as Auth from '../utils/Auth';
 
-function Login({handleLogin}) {
+function Login({handleLogin, handleEmail}) {
 
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -19,11 +18,15 @@ function Login({handleLogin}) {
     }
     Auth.authorize(userEmail, userPassword)
       .then((data) => {
-        if (data.token) {
+        if (data !== undefined && data.token) {
+          localStorage.setItem('jwt', data.token);
           setUserEmail('');
           setUserPassword('');
           handleLogin();
+          handleEmail(userEmail);
           goMain();
+        } else {
+          return;
         }
       })
       .catch(err => console.log(err));

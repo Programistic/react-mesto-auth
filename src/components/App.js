@@ -14,7 +14,7 @@ import ProtectedRoute from './ProtectedRoute';
 import Register from './Register';
 import Login from './Login';
 import InfoTooltip from './InfoTooltip';
-import * as Auth from './Auth';
+import * as Auth from '../utils/Auth';
 
 class App extends Component {
   constructor(props) {
@@ -39,32 +39,6 @@ class App extends Component {
 
     this.handleLogin = this.handleLogin.bind(this);
     this.tokenCheck = this.tokenCheck.bind(this);
-  }
-
-  handleLogin = () => {
-    this.setState({ loggedIn: true });
-  }
-  
-  resetLogedIn = () => {
-    this.setState({ loggedIn: false });
-  }
-
-  tokenCheck = () => {
-    if (localStorage.getItem('jwt')) {
-      const jwt = localStorage.getItem('jwt');
-      if (jwt) {
-        Auth.getContent(jwt).then((res) => {
-          if (res) {
-            this.setState({
-              loggedIn: true,
-              userEmail: res.data.email,
-            }, () => {
-              this.props.history.push("/main");
-            });
-          }
-        });
-      }
-    }
   }
 
   handleEditProfileClick = () => {
@@ -131,12 +105,10 @@ class App extends Component {
   handleCardDelete = () => {
     api.deleteCard(this.state.deleteCard._id)
       .then(() => {
-        this.setState(
-          {
-            cards: this.state.cards.filter(currentCard => currentCard._id !== this.state.deleteCard._id),
-            isConfirmPopupOpen: false
-          }
-        ); 
+        this.setState({
+          cards: this.state.cards.filter(currentCard => currentCard._id !== this.state.deleteCard._id),
+          isConfirmPopupOpen: false
+        }); 
       })
       .catch((err) => {
         console.log(err);
@@ -187,20 +159,61 @@ class App extends Component {
   }
 
   closeAllPopups = () => {
-    this.setState(
-      {
-        isEditProfilePopupOpen: false,
-        isAddPlacePopupOpen: false,
-        isEditAvatarPopupOpen: false,
-        isConfirmPopupOpen: false,
-        isInfoTooltipOpen: false,
-        selectedCard: {}
-      }
-    );
+    this.setState({
+      isEditProfilePopupOpen: false,
+      isAddPlacePopupOpen: false,
+      isEditAvatarPopupOpen: false,
+      isConfirmPopupOpen: false,
+      isInfoTooltipOpen: false,
+      selectedCard: {}
+    });
   }
 
   openConfirmDeletePopup = (card) => {
-    this.setState({ deleteCard: card, isConfirmPopupOpen: true });
+    this.setState({
+      deleteCard: card,
+      isConfirmPopupOpen: true
+    });
+  }
+
+  handleLogin = () => {
+    this.setState({
+      loggedIn: true
+    });
+  }
+
+  resetLoggedIn = () => {
+    this.setState({
+      loggedIn: false
+    })
+  }
+
+  handleEmail = (userEmail) => {
+    this.setState({
+      userEmail: userEmail
+    });
+  }
+
+  tokenCheck = () => {
+    if (localStorage.getItem('jwt')) {
+      const jwt = localStorage.getItem('jwt');
+      if (jwt) {
+        Auth.getContent(jwt)
+          .then((res) => {
+            if (res) {
+              this.setState({
+                loggedIn: true,
+                userEmail: res.data.email
+              }, () => {
+                this.props.history.push("/main");
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      }
+    }
   }
 
   openTooltipSuccess = () => {
@@ -235,7 +248,7 @@ class App extends Component {
 
           <CurrentUserContext.Provider value={this.state.currentUser}>
 
-            <Header userEmail={this.state.userEmail} resetLogedIn={this.resetLogedIn} />
+            <Header userEmail={this.state.userEmail} resetLoggedIn={this.resetLoggedIn} />
 
             <Switch>
 
@@ -253,7 +266,7 @@ class App extends Component {
               </ProtectedRoute>
 
               <Route path="/signin">
-                <Login handleLogin={this.handleLogin} />
+                <Login handleLogin={this.handleLogin} handleEmail={this.handleEmail}/>
               </Route>
 
               <Route path="/signup">
@@ -268,7 +281,6 @@ class App extends Component {
 
             {this.state.loggedIn && <Footer />}
             
-
             <EditProfilePopup
               isOpen={this.state.isEditProfilePopupOpen}
               onUpdateUser={this.handleUpdateUser}

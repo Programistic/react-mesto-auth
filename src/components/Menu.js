@@ -1,11 +1,11 @@
 import { Route, Switch, Link, useHistory } from 'react-router-dom';
 
-function Menu({userEmail, resetLogedIn}) {
+function Menu({userEmail, resetLoggedIn}) {
 
   const history = useHistory();
   const signOut = () => {
     localStorage.removeItem('jwt');
-    resetLogedIn();
+    resetLoggedIn();
     history.push("/signin");
   }
 
