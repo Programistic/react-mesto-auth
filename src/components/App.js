@@ -37,7 +37,6 @@ class App extends Component {
       loggedIn: false,
     };
 
-    this.handleLogin = this.handleLogin.bind(this);
     this.tokenCheck = this.tokenCheck.bind(this);
   }
 
@@ -176,22 +175,10 @@ class App extends Component {
     });
   }
 
-  handleLogin = () => {
-    this.setState({
-      loggedIn: true
-    });
-  }
-
   resetLoggedIn = () => {
     this.setState({
       loggedIn: false
     })
-  }
-
-  handleEmail = (userEmail) => {
-    this.setState({
-      userEmail: userEmail
-    });
   }
 
   tokenCheck = () => {
@@ -214,6 +201,20 @@ class App extends Component {
     }
   }
 
+  handleRegisterSubmit = (userEmail, userPassword) => {
+    Auth.register(userEmail, userPassword)
+      .then((res) => {
+        if(res) {
+          this.openTooltipSuccess(userEmail);
+        } else {
+          this.openTooltipFail();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   handleLoginSubmit = (userEmail, userPassword) => {
     Auth.authorize(userEmail, userPassword)
       .then((data) => {
@@ -225,15 +226,19 @@ class App extends Component {
           });
           this.props.history.push("/main");
         } else {
-          return;
+          this.openTooltipFail();
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
-  openTooltipSuccess = () => {
+  openTooltipSuccess = (userEmail) => {
     this.setState({
       isSuccess: true,
+      loggedIn: true,
+      userEmail: userEmail,
       isInfoTooltipOpen: true,
       infoTooltipButtonName: 'success',
       infoTooltipMessage: 'Вы успешно зарегистрировались!'
@@ -252,7 +257,7 @@ class App extends Component {
   handleConfirmRegister = () => {
     this.closeAllPopups();
     if(this.state.isSuccess) {
-      this.props.history.push('/signin');
+      this.props.history.push("/main");
     } 
   }
 
@@ -285,7 +290,7 @@ class App extends Component {
               </Route>
 
               <Route path="/signup">
-                <Register tooltipSuccess={this.openTooltipSuccess} tooltipFail={this.openTooltipFail} />
+                <Register handleRegisterSubmit={this.handleRegisterSubmit} />
               </Route>
 
               <Route>

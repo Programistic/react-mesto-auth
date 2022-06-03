@@ -1,26 +1,18 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import * as Auth from '../utils/Auth';
 
-function Register({tooltipSuccess, tooltipFail}) {
+function Register({handleRegisterSubmit}) {
 
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    Auth.register(userEmail, userPassword)
-      .then((res) => {
-        if(res) {
-          tooltipSuccess();
-        } else {
-          setUserEmail('');
-          setUserPassword('');
-          tooltipFail();
-        }
-      })
-      .catch(err => console.log(err));
-  }
+    if (!userEmail || !userPassword) {
+      return;
+    }
+    handleRegisterSubmit(userEmail, userPassword);
+  } 
 
   const handleEmailChange = (event) => {
     setUserEmail(event.target.value);
