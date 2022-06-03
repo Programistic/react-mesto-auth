@@ -214,6 +214,23 @@ class App extends Component {
     }
   }
 
+  handleLoginSubmit = (userEmail, userPassword) => {
+    Auth.authorize(userEmail, userPassword)
+      .then((data) => {
+        if (data !== undefined && data.token) {
+          localStorage.setItem('jwt', data.token);
+          this.setState({
+            loggedIn: true,
+            userEmail: userEmail
+          });
+          this.props.history.push("/main");
+        } else {
+          return;
+        }
+      })
+      .catch(err => console.log(err));
+  }
+
   openTooltipSuccess = () => {
     this.setState({
       isSuccess: true,
@@ -264,7 +281,7 @@ class App extends Component {
               </ProtectedRoute>
 
               <Route path="/signin">
-                <Login handleLogin={this.handleLogin} handleEmail={this.handleEmail}/>
+                <Login handleLoginSubmit={this.handleLoginSubmit} />
               </Route>
 
               <Route path="/signup">
@@ -272,7 +289,7 @@ class App extends Component {
               </Route>
 
               <Route>
-                {!this.state.loggedIn && <Redirect to="/signin" />}
+                {this.state.loggedIn ? <Redirect to="/main" /> : <Redirect to="/signin" />}
               </Route>
 
             </Switch>

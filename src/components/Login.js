@@ -1,35 +1,16 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import * as Auth from '../utils/Auth';
 
-function Login({handleLogin, handleEmail}) {
+function Login({handleLoginSubmit}) {
 
   const [userEmail, setUserEmail] = useState('');
-  const [userPassword, setUserPassword] = useState('');
-  const history = useHistory();
-  const goMain = () => {
-    history.push("/main");
-  }
+  const [userPassword, setUserPassword] = useState('')
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!userEmail || !userPassword) {
       return;
     }
-    Auth.authorize(userEmail, userPassword)
-      .then((data) => {
-        if (data !== undefined && data.token) {
-          localStorage.setItem('jwt', data.token);
-          setUserEmail('');
-          setUserPassword('');
-          handleLogin();
-          handleEmail(userEmail);
-          goMain();
-        } else {
-          return;
-        }
-      })
-      .catch(err => console.log(err));
+    handleLoginSubmit(userEmail, userPassword);
   }
 
   const handleEmailChange = (event) => {
