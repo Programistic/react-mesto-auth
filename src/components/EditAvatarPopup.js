@@ -22,7 +22,7 @@ function EditAvatarPopup({isOpen, onUpdateAvatar, onClose}) {
     <PopupWithForm name="avatar-update" title="Обновить аватар" buttonText={textOnSubmit} isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit}>
       <div className="form__fieldset form__fieldset_location_popup">
         <div className="form__field">
-          <input id="avatar-image-input" className="form__input form__input_theme_white" type="url" name="avatar-image" ref={inputAvatarSrc} placeholder="Ссылка на фото" required />
+          <input id="avatar-image-input" className="form__input form__input_theme_white form__input_location_popup" type="url" name="avatar-image" ref={inputAvatarSrc} placeholder="Ссылка на фото" required />
           <span className="form__input-error avatar-image-input-error"></span>
         </div>
       </div>

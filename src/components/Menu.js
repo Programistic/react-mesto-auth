@@ -10,7 +10,7 @@ function Menu({userEmail, resetLoggedIn}) {
   }
 
   return (
-    <nav className="menu">
+    <nav className="menu menu_mobile_signed-out">
       <Switch>
         <Route path="/main">
           <p className="menu__user-email">{userEmail}</p>

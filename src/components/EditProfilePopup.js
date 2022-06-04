@@ -34,11 +34,11 @@ function EditProfilePopup({isOpen, onUpdateUser, onClose}) {
     <PopupWithForm name="edit" title="Редактировать профиль" buttonText={textOnSubmit} isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit}>
       <fieldset className="form__fieldset form__fieldset_location_popup">
         <div className="form__field">
-          <input id="user-name-input" className="form__input form__input_theme_white" type="text" name="user-name" value={userName || ''} onChange={handleNameChange} placeholder="Ваше имя" required />
+          <input id="user-name-input" className="form__input form__input_theme_white form__input_location_popup" type="text" name="user-name" value={userName || ''} onChange={handleNameChange} placeholder="Ваше имя" required />
           <span className="form__input-error user-name-input-error"></span>
         </div>
         <div className="form__field">
-          <input id="user-info-input" className="form__input form__input_theme_white" type="text" name="user-info" value={userDescription || ''} onChange={handleDescriptionChange} placeholder="Ваша профессия" required />
+          <input id="user-info-input" className="form__input form__input_theme_white form__input_location_popup" type="text" name="user-info" value={userDescription || ''} onChange={handleDescriptionChange} placeholder="Ваша профессия" required />
           <span className="form__input-error user-info-input-error"></span>
         </div>
       </fieldset>

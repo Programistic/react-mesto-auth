@@ -1,13 +1,5 @@
 .form__submit {
-  width: 100%;
   margin: 0;
   padding: 14px 0;
-  font: 400 18px/22px 'Inter', 'Arial', sans-serif;
   border-radius: 2px;
-}
-
-@media screen and (max-width: 580px) {
-  .form__submit {
-    font: 400 14px/17px 'Inter', 'Arial', sans-serif;
-  }
 }

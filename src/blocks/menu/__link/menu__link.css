@@ -7,13 +7,14 @@
   transition: opacity .15s ease;
 }
 
+@media screen and (max-width: 580px) {
+  .menu__link {
+    padding: 5px 0 4px;
+    font: 400 14px/17px 'Inter', 'Arial', sans-serif;
+  }
+}
+
 .menu__link:hover {
   cursor: pointer;
   opacity: .8;
-}
-
-@media screen and (max-width: 580px) {
-  .menu__link {
-    display: none;
-  }
 }

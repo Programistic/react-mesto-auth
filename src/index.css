@@ -11,6 +11,8 @@
 
 /* Стили для menu */
 @import url(./blocks/menu/menu.css);
+@import url(./blocks/menu/_mobile/_signed-in/menu_mobile_signed-in.css);
+@import url(./blocks/menu/_mobile/_signed-out/menu_mobile_signed-out.css);
 @import url(./blocks/menu/__user-email/menu__user-email.css);
 @import url(./blocks/menu/__link/menu__link.css);
 
@@ -51,9 +53,13 @@
 @import url(./blocks/form/__input/form__input.css);
 @import url(./blocks/form/__input/_theme/_white/form__input_theme_white.css);
 @import url(./blocks/form/__input/_theme/_black/form__input_theme_black.css);
+@import url(./blocks/form/__input/_location/_popup/form__input_location_popup.css);
+@import url(./blocks/form/__input/_location/entry-screen/form__input_location_entry-screen.css);
 @import url(./blocks/form/__submit/form__submit.css);
 @import url(./blocks/form/__submit/_theme/_white/form__submit_theme_white.css);
 @import url(./blocks/form/__submit/_theme/_black/form__submit_theme_black.css);
+@import url(./blocks/form/__submit/_location/_popup/form__sumbit_location_popup.css);
+@import url(./blocks/form/__submit/_location/_entry-screen/form__submit_location_entry-screen.css);
 
 /* Стили для popup */
 @import url(./blocks/popup/popup.css);

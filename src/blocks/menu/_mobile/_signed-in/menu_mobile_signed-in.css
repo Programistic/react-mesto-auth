@@ -1,0 +1,15 @@
+@media screen and (max-width: 580px) {
+  .menu_mobile_signed-in {
+    width: 24px;
+    height: 25px;
+    margin-right: calc(((100% - 282px) / 2) + 11px);
+    padding: 0;
+    background-image: linear-gradient(
+      #fff 3px,
+      #000 1px
+    );
+    background-size: 25px 10px;
+    background-repeat: repeat-y;
+    transition: opacity .15s ease;
+  }
+}
